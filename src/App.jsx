@@ -1,34 +1,60 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import React from 'react'; //for React and EJX
+import { Input } from '../src/components/Input'; //our Reusable component
+import { useForm } from '../src/form-hook';
 
-function App() {
-  const [count, setCount] = useState(0)
+export const App = (props) => {
+  const submitHandler = (event) => {
+    event.preventDefault()
+    console.log(formState.inputs)
+  }
+
+  const [formState, inputHandler] = useForm({
+    name: { value: '' },
+    email: { value: '' },
+    description: { value: '' },
+    address: { value: '' },
+    number: { value: '' }
+  })
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <form onSubmit={submitHandler}>
+      <Input
+        id="name"
+        element="input"
+        type="text"
+        label="Name"
+        onInput={inputHandler}
+      />
+      <Input
+        id="email"
+        element="input"
+        type="e-mail"
+        label="E-mail"
+        onInput={inputHandler}
+      />
+      <Input
+        id="description"
+        element="textarea"
+        label="Description"
+        onInput={inputHandler}
+      />
+      <Input
+        id="address"
+        element="input"
+        type="text"
+        label="Address"
+        onInput={inputHandler}
+      />
+      <Input
+        id="number"
+        element="input"
+        type="number"
+        label="Number"
+        onInput={inputHandler}
+      />
+      <button type="submit"> SUBMIT</button>
+    </form>
   )
 }
 
-export default App
+export default { App }
